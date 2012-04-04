@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://san.mibac.it/ricerca-san/"
+    xmlns="http://san.mibac.it/ricerca-san/">
+
+    <xsd:element name="ead">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="eadheader"/>
+                <xsd:element ref="archdesc"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="eadheader">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="eadid"/>
+                <xsd:element ref="filedesc"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="eadid">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:NMTOKEN">
+                    <xsd:attribute name="identifier" use="required" type="xsd:NMTOKEN"/>
+                    <xsd:attribute name="URL" use="required" type="xsd:anyURI"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="filedesc">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="titlestmt"/>
+                <xsd:element ref="publicationstmt"/>
+                <xsd:element ref="notestmt" minOccurs="0"/>
+                <xsd:element ref="editionstmt" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="titlestmt">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="author" minOccurs="0" type="stringNotEmpty"/>
+                <xsd:element name="titleproper" type="stringNotEmpty"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="publicationstmt">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="date" type="stringNotEmpty"/>
+                <xsd:element name="address" minOccurs="0" type="stringNotEmpty"/>
+                <xsd:element name="publisher" minOccurs="0" type="stringNotEmpty"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="notestmt">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="note"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="note">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="stringNotEmpty">
+                    <xsd:attribute name="type">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:NMTOKEN">
+                                <xsd:enumeration value="edito"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:attribute>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="editionstmt">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="edition" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="edition">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="extptr"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="extptr">
+        <xsd:complexType>
+            <xsd:attribute name="href" use="required" type="xsd:anyURI"/>
+            <xsd:attribute name="title" type="stringNotEmpty"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="archdesc">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="did"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="did">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="unitid" maxOccurs="unbounded" type="xsd:NMTOKEN"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="stringNotEmpty">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

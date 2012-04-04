@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://san.mibac.it/scons-san/"
+    xmlns="http://san.mibac.it/scons-san/">
+    <xsd:element name="scons">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice>
+                    <xsd:element ref="formaautorizzata"/>
+                    <xsd:element ref="formeparallele"/>
+                </xsd:choice>
+                <xsd:element name="acronimo" type="xsd:NMTOKEN" minOccurs="0"/>
+                <xsd:element ref="identifier"/>
+                <xsd:element name="tipologia" type="xsd:string"/>
+                <xsd:element ref="localizzazione" maxOccurs="unbounded"/>
+                <xsd:element ref="sitoweb" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="servizi" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="descrizione" type="xsd:string" minOccurs="0"/>
+                <xsd:choice>
+                    <xsd:sequence>
+                        <xsd:element name="orario" type="xsd:string"/>
+                        <xsd:element name="altroaccesso" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="consultazione" type="xsd:boolean" fixed="true"/>
+                    </xsd:sequence>
+                    <xsd:sequence>
+                        <xsd:element name="altroaccesso" type="xsd:string"/>
+                        <xsd:element name="consultazione" type="xsd:boolean" fixed="false"/>
+                    </xsd:sequence>
+                </xsd:choice>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="formaautorizzata" type="xsd:string"/>
+    <xsd:element name="formeparallele">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="formaautorizzata" minOccurs="2" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:simpleContent>
+                            <xsd:extension base="xsd:string">
+                                <xsd:attribute name="language" type="xsd:NMTOKEN"/>
+                            </xsd:extension>
+                        </xsd:simpleContent>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="identifier">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="recordId" type="xsd:NMTOKEN"/>
+                <xsd:element name="sistemaId" type="xsd:NMTOKEN"/>
+            </xsd:sequence>
+            <xsd:attribute name="href" use="required" type="xsd:anyURI"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="localizzazione">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                    <xsd:attribute name="paese" use="required" type="xsd:NMTOKEN"/>
+                    <xsd:attribute name="provincia" use="required" type="xsd:string"/>
+                    <xsd:attribute name="comune" use="required" type="xsd:string"/>
+                    <xsd:attribute name="cap" use="required" type="xsd:nonNegativeInteger"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="sitoweb">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:string">
+                    <xsd:attribute name="href" use="required" type="xsd:anyURI"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

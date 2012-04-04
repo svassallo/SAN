@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://san.mibac.it/eac-san/" xmlns="http://san.mibac.it/eac-san/" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <xsd:import namespace="http://www.w3.org/1999/xlink" schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>    
+    <xsd:element name="eac-cpf">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="control"/>
+                <xsd:element ref="cpfDescription"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="control">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="otherRecordId"/>
+                <xsd:element ref="maintenanceStatus" />
+                <xsd:element ref="sources"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="otherRecordId">
+        <xsd:complexType>
+            <xsd:simpleContent>
+                <xsd:extension base="xsd:NMTOKEN">
+                    <xsd:attribute name="localType" use="required" type="xsd:NMTOKEN"/>
+                </xsd:extension>
+            </xsd:simpleContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="maintenanceStatus">
+        <xsd:simpleType>
+            <xsd:restriction base="xsd:token">
+                <xsd:enumeration value="scheda pubblicata"/>
+                <xsd:enumeration value="scheda in via di compilazione"/>
+                <xsd:enumeration value="pubblicazione locale/interna"/>
+                <xsd:enumeration value="scheda di prova"/>
+                <xsd:enumeration value="scheda in via di pubblicazione"/>
+                <xsd:enumeration value="da rivedere"/>
+                <xsd:enumeration value="rivista"/>
+                <xsd:enumeration value="non indicato"/>
+            </xsd:restriction>
+        </xsd:simpleType>
+    </xsd:element>
+    
+    <xsd:element name="sources">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="source"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="source">
+        <xsd:complexType>
+            <xsd:attribute ref="xlink:href" use="required"/>            
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="cpfDescription">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="identity"/>
+                <xsd:element ref="description" />
+                <xsd:element ref="relations" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="identity">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="entityType" minOccurs="0"/>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element ref="nameEntry"/>
+                    <xsd:element ref="nameEntryParallel"/>
+                </xsd:choice>
+            </xsd:sequence>
+            <xsd:attribute name="localType">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="profilo istituzionale"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="entityType">
+        <xsd:simpleType>
+            <xsd:restriction base="xsd:token">
+                <xsd:enumeration value="person"/>
+                <xsd:enumeration value="corporateBody"/>
+                <xsd:enumeration value="family"/>
+            </xsd:restriction>
+        </xsd:simpleType>
+    </xsd:element>    
+    <xsd:element name="nameEntry">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element maxOccurs="unbounded" name="part" type="stringNotEmpty"/>
+            </xsd:sequence>
+            <xsd:attribute name="localType" fixed="altradenominazione"/>
+            <xsd:attribute name="langCode" type="xsd:NMTOKEN"/>
+        </xsd:complexType>        
+    </xsd:element>
+    <xsd:element name="nameEntryParallel">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="nameEntry" minOccurs="2" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element maxOccurs="unbounded" name="part" type="stringNotEmpty"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="localType" fixed="altradenominazione"/>
+                        <xsd:attribute name="langCode" type="xsd:NMTOKEN" use="required"/>
+                    </xsd:complexType>        
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="description">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="existDates"/>
+                <xsd:element ref="placeDates" minOccurs="0"/>
+                <xsd:element ref="descriptiveEntries" minOccurs="0"/>
+                <xsd:element ref="biogHist" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="existDates">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="dateSet"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="dateSet">
+        <xsd:complexType>
+                <xsd:sequence>
+                    <xsd:element name="date" minOccurs="1"
+                        maxOccurs="unbounded" >
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:extension
+                                    base="stringNotEmpty">
+                                <xsd:attribute name="localType" use="required">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                            <xsd:enumeration value="non indicata" />
+                                            <xsd:enumeration value="data di nascita" />
+                                            <xsd:enumeration value="data di morte" />
+                                            <xsd:enumeration value="date di esistenza" />
+                                            <xsd:enumeration value="data di istituzione" />
+                                            <xsd:enumeration value="data di soppressione" />
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:attribute>
+                                <xsd:attributeGroup ref="date"/>
+                                </xsd:extension>
+                            </xsd:simpleContent>
+
+                            </xsd:complexType>
+                    </xsd:element>                    
+                </xsd:sequence>
+
+                    
+        </xsd:complexType>
+    </xsd:element>
+    
+    <xsd:element name="placeDates">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="placeDate" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="placeDate">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="place" type="stringNotEmpty"/>
+                <xsd:element name="descriptiveNote" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="luogo di nascita"/>
+                            <xsd:enumeration value="luogo di morte"/>
+                            <xsd:enumeration value="sede"/>
+                            <xsd:enumeration value="residenza"/>
+                            <xsd:enumeration value="ambito territoriale"/>
+                            <xsd:enumeration value="giurisdizione"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="descriptiveEntries">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="descriptiveEntry" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="descriptiveEntry">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="term" type="stringNotEmpty"/>
+                <xsd:element name="descriptiveNote" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="professione"/>
+                            <xsd:enumeration value="titolo nobiliare"/>
+                            <xsd:enumeration value="natura giuridica"/>
+                            <xsd:enumeration value="tipologia ente"/>
+                            <xsd:enumeration value="sottotipologia ente"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="biogHist">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="abstract" type="stringNotEmpty"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="relations">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="resourceRelation" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element ref="cpfRelation" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="resourceRelation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="relationEntry"/>
+            </xsd:sequence>
+            <xsd:attribute name="resourceRelationType" fixed="creatorOf" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="cpfRelation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="relationEntry"/>
+                <xsd:element name="date" minOccurs="0" type="stringNotEmpty"/>
+                <xsd:element name="descriptiveNote" minOccurs="0">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="profilo istituzionale"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="localType" type="xsd:string"/>
+        </xsd:complexType>
+    </xsd:element>   
+    <xsd:element name="relationEntry" type="xsd:NMTOKEN"/>
+    <xsd:attributeGroup name="date">
+        <xsd:attribute name="standardDate">
+            <xsd:simpleType>
+                <xsd:union>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:length value="8"/>
+                            <xsd:pattern value="\d{8}"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:length value="17"/>
+                            <xsd:pattern value="\d{8}/\d{8}"/>
+                        </xsd:restriction>                                    
+                    </xsd:simpleType>
+                </xsd:union>
+            </xsd:simpleType>
+        </xsd:attribute>
+    </xsd:attributeGroup>
+    <xsd:simpleType name="stringNotEmpty">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

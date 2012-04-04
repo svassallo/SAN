@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://san.mibac.it/cat-import"
+	xmlns="http://san.mibac.it/cat-import" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ead-complarc="http://san.mibac.it/ead-san/"
+	xmlns:scons="http://san.mibac.it/scons-san/" xmlns:eac-cpf="http://san.mibac.it/eac-san/"
+	xmlns:ead-str="http://san.mibac.it/ricerca-san/">
+
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
+
+	<xs:import namespace="http://san.mibac.it/scons-san/"
+		schemaLocation="http://san.beniculturali.it/tracciato/scons.xsd"/>
+
+	<xs:import namespace="http://san.mibac.it/ead-san/"
+		schemaLocation="http://san.beniculturali.it/tracciato/schemaead.xsd"/>
+
+	<xs:import namespace="http://san.mibac.it/eac-san/"
+		schemaLocation="http://san.beniculturali.it/tracciato/schemaeac.xsd"/>
+
+	<xs:import namespace="http://san.mibac.it/ricerca-san/"
+		schemaLocation="http://san.beniculturali.it/tracciato/strumenti.xsd"/>
+
+	<xs:element name="cat-import">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="catheader" type="catheader"/>
+				<xs:element name="catListRecords" type="catListRecords"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="catheader">
+		<xs:sequence>
+			<xs:element name="systemId" type="xs:string"/>
+			<xs:element name="contact" type="contact"/>
+			<xs:element name="filedesc" type="filedesc"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="contact">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="mail" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element name="phone" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="fax" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="filedesc">
+		<xs:sequence>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="abstract" type="xs:string" minOccurs="0"/>
+			<xs:element name="date" type="xs:dateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="catListRecords">
+		<xs:sequence>
+			<xs:element name="catRecord" type="catRecord" minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="catRecord">
+		<xs:sequence>
+			<xs:element name="catRecordHeader" type="catRecordHeader" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="catRecordBody" type="catRecordBody" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="catRecordHeader">
+		<xs:sequence>
+			<xs:element name="id" type="xs:NMTOKEN"/>
+			<xs:element name="lastUpdate" type="xs:dateTime"/>
+		</xs:sequence>
+		<xs:attribute name="status" fixed="deleted" use="optional"/>
+		<xs:attribute name="type" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="complesso archivistico"/>
+					<xs:enumeration value="soggetto produttore"/>
+					<xs:enumeration value="soggetto conservatore"/>
+					<xs:enumeration value="strumento di ricerca"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="catRecordBody">
+		<xs:choice>
+			<xs:element ref="ead-complarc:ead"/>
+			<xs:element ref="ead-str:ead"/>
+			<xs:element ref="eac-cpf:eac-cpf"/>
+			<xs:element ref="scons:scons"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

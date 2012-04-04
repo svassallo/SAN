@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://san.mibac.it/mix-lite/" xmlns="http://san.mibac.it/mix-lite/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xsd:element name="mix" type="mixType"/>
+
+    <xsd:complexType name="mixType">
+        <xsd:sequence>
+            <xsd:element name="BasicDigitalObjectInformation" type="BasicDigitalObjectInformationType"/>
+            <xsd:element name="BasicImageInformation" type="BasicImageInformationType"/>
+            <xsd:element name="ImageCaptureMetadata" type="ImageCaptureMetadataType" minOccurs="0"/>
+            <xsd:element name="ImageAssessmentMetadata" type="ImageAssessmentMetadataType" minOccurs="0" maxOccurs="1"/>
+            
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- BasicDigitalObjectInformationType -->
+    <xsd:complexType name="BasicDigitalObjectInformationType">
+        <xsd:sequence>
+            <xsd:element name="ObjectIdentifier" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="objectIdentifierType" type="xsd:string"/>
+                        <xsd:element name="objectIdentifierValue" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="FormatDesignation">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="formatName" type="xsd:string"/>
+                        <xsd:element name="formatVersion" type="xsd:string" minOccurs="0" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Compression" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="compressionScheme" type="xsd:string" minOccurs="0"/>
+                        <xsd:element name="compressionRatio" type="rationalType" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="Fixity" minOccurs="0" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="messageDigestAlgorithm" type="messageDigestAlgorithmType"
+                            minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="messageDigest" type="xsd:string" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- BasicImageInformationType -->
+    <xsd:complexType name="BasicImageInformationType">
+        <xsd:sequence>
+            <xsd:element name="BasicImageCharacteristics">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="imageWidth" type="xsd:positiveInteger"/>
+                        <xsd:element name="imageHeight" type="xsd:positiveInteger"/>
+                        <xsd:element name="PhotometricInterpretation" minOccurs="0">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="colorSpace" type="xsd:string" minOccurs="0"/>
+                                    <xsd:element name="YCbCr" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="YCbCrSubSampling" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:sequence>
+                                                  <xsd:element name="yCbCrSubsampleHoriz"
+                                                  type="yCbCrSubsampleHorizType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                  <xsd:element name="yCbCrSubsampleVert"
+                                                  type="yCbCrSubsampleVertType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                  </xsd:sequence>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                                <xsd:element name="yCbCrPositioning"
+                                                  type="yCbCrPositioningType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="YCbCrCoefficients" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:sequence>
+                                                  <xsd:element name="lumaRed" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>
+                                                  <xsd:element name="lumaGreen" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>
+                                                  <xsd:element name="lumaBlue" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>
+                                                  </xsd:sequence>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="SpecialFormatCharacteristics" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="JPEG2000" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="CodecCompliance" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="codec" type="xsd:string"
+                                                  minOccurs="0" maxOccurs="1"/>
+                                                <xsd:element name="codecVersion" type="xsd:string"
+                                                  minOccurs="0" maxOccurs="1"/>
+                                                <xsd:element name="codestreamProfile"
+                                                  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+                                                <xsd:element name="complianceClass"
+                                                  type="xsd:string" minOccurs="0" maxOccurs="1"/>
+
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="EncodingOptions" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="Tiles" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:sequence>
+                                                  <xsd:element name="tileWidth"
+                                                  type="xsd:positiveInteger" minOccurs="0"
+                                                  maxOccurs="1"> </xsd:element>
+                                                  <xsd:element name="tileHeight"
+                                                  type="xsd:positiveInteger" minOccurs="0"
+                                                  maxOccurs="1"> </xsd:element>
+                                                  </xsd:sequence>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                                <xsd:element name="qualityLayers"
+                                                  type="xsd:positiveInteger" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="resolutionLevels"
+                                                  type="xsd:positiveInteger" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+
+                        <xsd:element name="MrSID" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="zoomLevels" type="xsd:positiveInteger"
+                                        minOccurs="0" maxOccurs="1"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="Djvu" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="djvuFormat" type="djvuFormatType"
+                                        minOccurs="0" maxOccurs="1"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- ImageCaptureMetadataType -->
+    <xsd:complexType name="ImageCaptureMetadataType">
+        <xsd:sequence>
+            <xsd:element name="SourceInformation" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="SourceSize" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="SourceXDimension" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="sourceXDimensionValue"
+                                                  type="nonNegativeRealType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="sourceXDimensionUnit"
+                                                  type="sourceDimensionUnitType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="SourceYDimension" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="sourceYDimensionValue"
+                                                  type="nonNegativeRealType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="sourceYDimensionUnit"
+                                                  type="sourceDimensionUnitType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                    <xsd:element name="SourceZDimension" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="sourceZDimensionValue"
+                                                  type="nonNegativeRealType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="sourceZDimensionUnit"
+                                                  type="sourceDimensionUnitType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="GeneralCaptureInformation" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="dateTimeCreated" type="DateType" minOccurs="0"
+                            maxOccurs="1"/>
+                        <xsd:element name="imageProducer" type="xsd:string" minOccurs="0"
+                            maxOccurs="unbounded"/>
+                        <xsd:element name="captureDevice" type="captureDeviceType" minOccurs="0"
+                            maxOccurs="1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ScannerCapture" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="scannerManufacturer" type="xsd:string" minOccurs="0"
+                            maxOccurs="1"/>
+                        <xsd:element name="ScannerModel" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="scannerModelName" type="xsd:string"
+                                        minOccurs="0" maxOccurs="1"/>
+                                    <xsd:element name="scannerModelNumber" type="xsd:string"
+                                        minOccurs="0" maxOccurs="1"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="ScanningSystemSoftware" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="scanningSoftwareName" type="xsd:string"
+                                        minOccurs="0" maxOccurs="1"/>
+                                    <xsd:element name="scanningSoftwareVersionNo" type="xsd:string"
+                                        minOccurs="0" maxOccurs="1"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DigitalCameraCapture" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="digitalCameraManufacturer" type="xsd:string"
+                            minOccurs="0" maxOccurs="1"/>
+                        <xsd:element name="DigitalCameraModel" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="digitalCameraModelName" type="xsd:string"
+                                        minOccurs="0" maxOccurs="1"/>
+                                    <xsd:element name="digitalCameraModelNumber" type="xsd:string"
+                                        minOccurs="0" maxOccurs="1"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="CameraCaptureSettings" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="GPSData" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="gpsVersionID" type="xsd:string"
+                                                  minOccurs="0" maxOccurs="1"/>
+                                                <xsd:element name="gpsLatitudeRef"
+                                                  type="gpsLatitudeRefType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="GPSLatitude" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:group ref="gpsGroup"/>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                                <xsd:element name="gpsLongitudeRef"
+                                                  type="gpsLongitudeRefType" minOccurs="0"
+                                                  maxOccurs="1"/>
+                                                <xsd:element name="GPSLongitude" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:group ref="gpsGroup"/>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                                <xsd:element name="gpsAltitudeRef"
+                                                  type="gpsAltitudeRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsAltitude" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsTimeStamp" type="xsd:string"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsSatellites" type="xsd:string"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsStatus"
+                                                  type="gpsStatusType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsMeasureMode"
+                                                  type="gpsMeasureModeType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDOP" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsSpeedRef"
+                                                  type="gpsSpeedRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsSpeed" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsTrackRef"
+                                                  type="gpsTrackRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsTrack" type="rationalType"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsImgDirectionRef"
+                                                  type="gpsImgDirectionRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsImgDirection"
+                                                  type="rationalType" minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsMapDatum" type="xsd:string"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDestLatitudeRef"
+                                                  type="gpsDestLatitudeRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="GPSDestLatitude" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:group ref="gpsGroup"/>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                                <xsd:element name="gpsDestLongitudeRef"
+                                                  type="gpsDestLongitudeRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="GPSDestLongitude" minOccurs="0"
+                                                  maxOccurs="1">
+                                                  <xsd:complexType>
+                                                  <xsd:group ref="gpsGroup"/>
+                                                  </xsd:complexType>
+                                                </xsd:element>
+                                                <xsd:element name="gpsDestBearingRef"
+                                                  type="gpsDestBearingRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDestBearing"
+                                                  type="rationalType" minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDestDistanceRef"
+                                                  type="gpsDestDistanceRefType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDestDistance"
+                                                  type="rationalType" minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsProcessingMethod"
+                                                  type="xsd:string" minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsAreaInformation"
+                                                  type="xsd:string" minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDateStamp" type="xsd:date"
+                                                  minOccurs="0" maxOccurs="1"/>                                                
+                                                <xsd:element name="gpsDifferential"
+                                                  type="gpsDifferentialType" minOccurs="0"
+                                                  maxOccurs="1"/>                                                
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="orientation" type="orientationType" minOccurs="0" maxOccurs="1"/>            
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- ImageAssessmentMetadataType  -->
+    <xsd:complexType name="ImageAssessmentMetadataType">
+        <xsd:sequence>
+            <xsd:element name="ImageColorEncoding" minOccurs="0" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="BitsPerSample" minOccurs="0" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="bitsPerSampleValue"
+                                        type="xsd:positiveInteger" minOccurs="0"
+                                        maxOccurs="unbounded">
+                                        <xsd:annotation>
+                                            <xsd:documentation>NDD id="9.2.1.1"</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                    <xsd:element name="bitsPerSampleUnit"
+                                        type="bitsPerSampleUnit" minOccurs="0"
+                                        maxOccurs="1">
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="samplesPerPixel" type="xsd:positiveInteger" minOccurs="0"
+                            maxOccurs="1">
+                            <xsd:annotation>
+                                <xsd:documentation>NDD id="9.2.2"</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <!-- Other type-->
+    <xsd:complexType name="rationalType">
+        <xsd:sequence>
+            <xsd:element name="numerator" type="xsd:integer" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="denominator" type="xsd:integer" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="messageDigestAlgorithmType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Adler-32"/>
+            <xsd:enumeration value="CRC32"/>
+            <xsd:enumeration value="HAVAL"/>
+            <xsd:enumeration value="MD5"/>
+            <xsd:enumeration value="MNP"/>
+            <xsd:enumeration value="SHA-1"/>
+            <xsd:enumeration value="SHA-256"/>
+            <xsd:enumeration value="SHA-384"/>
+            <xsd:enumeration value="SHA-512"/>
+            <xsd:enumeration value="TIGER"/>
+            <xsd:enumeration value="WHIRLPOOL"/>
+            <xsd:enumeration value="unknown"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="yCbCrSubsampleHorizType">
+        <xsd:restriction base="xsd:integer">
+            <xsd:enumeration value="1"/>
+            <xsd:enumeration value="2"/>
+            <xsd:enumeration value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="yCbCrSubsampleVertType">
+        <xsd:restriction base="xsd:integer">
+            <xsd:enumeration value="1"/>
+            <xsd:enumeration value="2"/>
+            <xsd:enumeration value="4"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="yCbCrPositioningType">
+        <xsd:restriction base="xsd:integer">
+            <xsd:enumeration value="1"/>
+            <xsd:enumeration value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="djvuFormatType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="indirect"/>
+            <xsd:enumeration value="bundled"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="nonNegativeRealType">
+        <xsd:restriction base="xsd:float">
+            <xsd:minInclusive value="0"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="sourceDimensionUnitType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="in."/>
+            <xsd:enumeration value="mm"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="DateType">
+        <xsd:union memberTypes="xsd:date xsd:dateTime xsd:gYear xsd:gYearMonth"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="captureDeviceType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="transmission scanner"/>
+            <xsd:enumeration value="reflection print scanner"/>
+            <xsd:enumeration value="digital still camera"/>
+            <xsd:enumeration value="still from video"/>
+        </xsd:restriction>
+    </xsd:simpleType>    
+    <xsd:group name="gpsGroup">
+        <xsd:sequence>
+            <xsd:element name="degrees" type="rationalType" minOccurs="0" maxOccurs="1"/>            
+            <xsd:element name="minutes" type="rationalType" minOccurs="0" maxOccurs="1"/>            
+            <xsd:element name="seconds" type="rationalType" minOccurs="0" maxOccurs="1"/>            
+        </xsd:sequence>
+    </xsd:group>    
+    <xsd:simpleType name="gpsLatitudeRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="N"/>
+            <xsd:enumeration value="S"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsLongitudeRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="E"/>
+            <xsd:enumeration value="W"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsAltitudeRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Sea level"/>
+            <xsd:enumeration value="Sea level reference (negative value)"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsStatusType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="A"/>
+            <xsd:enumeration value="V"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsMeasureModeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="2-dimensional measurement"/>
+            <xsd:enumeration value="3-dimensional measurement"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsSpeedRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="K"/>
+            <xsd:enumeration value="M"/>
+            <xsd:enumeration value="N"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsTrackRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="T"/>
+            <xsd:enumeration value="M"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsImgDirectionRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="T"/>
+            <xsd:enumeration value="M"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsDestLatitudeRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="N"/>
+            <xsd:enumeration value="S"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsDestLongitudeRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="E"/>
+            <xsd:enumeration value="W"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsDestBearingRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="T"/>
+            <xsd:enumeration value="M"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsDestDistanceRefType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="K"/>
+            <xsd:enumeration value="M"/>
+            <xsd:enumeration value="N"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="gpsDifferentialType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Measurement without differential correction"/>
+            <xsd:enumeration value="Differential correction applied"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="orientationType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="normal*"/>
+            <xsd:enumeration value="normal, image flipped"/>
+            <xsd:enumeration value="normal, rotated 180°"/>
+            <xsd:enumeration value="normal, image flipped, rotated 180°"/>
+            <xsd:enumeration value="normal, image flipped, rotated cw 90°"/>
+            <xsd:enumeration value="normal, rotated ccw 90°"/>
+            <xsd:enumeration value="normal, image flipped, rotated ccw 90°"/>
+            <xsd:enumeration value="normal, rotated cw 90°"/>
+            <xsd:enumeration value="unknown"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="bitsPerSampleUnit">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="integer"/>
+            <xsd:enumeration value="floating point"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

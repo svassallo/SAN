@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+  targetNamespace="http://san.mibac.it/mets-san/" xmlns:mets="http://san.mibac.it/mets-san/"
+  xmlns:san-dl="http://mibac.it/san/dl#" xmlns:metsrights="http://san.mibac.it/metsrights-lite/"
+  xmlns:mix="http://san.mibac.it/mix-lite/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:ead-context="http://san.mibac.it/ead-san-objdig/context"
+  xmlns:ead="http://san.mibac.it/ead-san-objdig/"
+  xmlns:ead-noarch="http://san.mibac.it/ead-san-objdig-noarch/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns="http://san.mibac.it/mets-san/">
+  <xsd:import namespace="http://mibac.it/san/dl#"
+    schemaLocation="http://san.beniculturali.it/tracciato/san-dl.xsd"/>
+  <xsd:import namespace="http://san.mibac.it/ead-san-objdig/"
+    schemaLocation="http://san.beniculturali.it/tracciato/ead-objdig-desc.xsd"/>
+  <xsd:import namespace="http://san.mibac.it/ead-san-objdig-noarch/"
+    schemaLocation="http://san.beniculturali.it/tracciato/ead-objdig-desc-noarch.xsd"/>
+  <xsd:import namespace="http://san.mibac.it/ead-san-objdig/context"
+    schemaLocation="http://san.beniculturali.it/tracciato/ead-objdig-context.xsd"/>
+  <xsd:import namespace="http://san.mibac.it/mix-lite/"
+    schemaLocation="http://san.beniculturali.it/tracciato/mixlite.xsd"/>
+  <xsd:import namespace="http://san.mibac.it/metsrights-lite/"
+    schemaLocation="http://san.beniculturali.it/tracciato/metsrightslite.xsd"/>
+  <xsd:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    schemaLocation="http://san.beniculturali.it/tracciato/mets_rdf.xsd"/>
+  <xsd:import namespace="http://www.w3.org/1999/xlink"
+    schemaLocation="http://www.loc.gov/standards/xlink/xlink.xsd"/>
+
+  <xsd:element name="mets">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:metsHdr"/>
+        <xsd:element ref="mets:dmdSec" maxOccurs="unbounded"/>
+        <xsd:element ref="mets:amdSec"/>
+        <xsd:element ref="mets:fileSec"/>
+        <xsd:element ref="mets:structMap" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute name="OBJID">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="(SAN:san.dl.[a-zA-Z0-9]+:[a-zA-Z0-9.]+)(-[a-zA-Z0-9]+)"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="metsHdr">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="agent" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="name" type="xsd:string"/>
+            </xsd:sequence>
+            <xsd:attribute name="OTHERROLE" use="optional">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="IdIpOwner"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="ROLE" use="required">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:enumeration value="CREATOR"/>
+                  <xsd:enumeration value="IPOWNER"/>
+                  <xsd:enumeration value="OTHER"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+            <xsd:attribute name="TYPE" use="required">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:pattern value="ORGANIZATION"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:attribute>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element name="altRecordID">
+          <xsd:complexType>
+            <xsd:simpleContent>
+              <xsd:extension base="xsd:string">
+                <xsd:attribute name="TYPE" use="required" type="xsd:string"/>
+              </xsd:extension>
+            </xsd:simpleContent>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute name="CREATEDATE" use="required" type="xsd:dateTime"/>
+      <xsd:attribute name="LASTMODDATE" use="required" type="xsd:dateTime"/>
+      <xsd:attribute name="RECORDSTATUS" type="xsd:string"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="dmdSec">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="mets:mets.mdWrap">
+          <xsd:attribute name="GROUPID" use="optional">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:pattern value="desc"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+          <xsd:attribute name="ID" use="required">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:enumeration value="ead-context-001"/>
+                <xsd:enumeration value="ead-desc-001"/>
+                <xsd:enumeration value="rel"/>
+                <xsd:enumeration value="relDL"/>
+                <xsd:enumeration value="relSAN"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="amdSec">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:techMD" minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:element ref="mets:rightsMD" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="techMD">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="mets:mets.mdWrap">
+          <xsd:attribute name="ID" use="required">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:pattern value="amdTEC\d{3}"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="rightsMD">
+    <xsd:complexType>
+      <xsd:complexContent>
+        <xsd:extension base="mets:mets.mdWrap">
+          <xsd:attribute name="ID" use="required">
+            <xsd:simpleType>
+              <xsd:restriction base="xsd:string">
+                <xsd:pattern value="amdRD\d{3}"/>
+                <xsd:pattern value="amdRA\d{3}"/>
+              </xsd:restriction>
+            </xsd:simpleType>
+          </xsd:attribute>
+        </xsd:extension>
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="fileSec">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:fileGrp" maxOccurs="2"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="fileGrp">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:file" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="USE" use="required">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="thumbnail image"/>
+            <xsd:enumeration value="reference image"/>
+            <xsd:enumeration value="san image"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="file">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:FLocat"/>
+      </xsd:sequence>
+      <xsd:attribute name="ID" use="required" type="xsd:NCName"/>
+      <xsd:attribute name="MIMETYPE" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="FLocat">
+    <xsd:complexType>
+      <xsd:attribute name="LOCTYPE" use="required" type="xsd:NCName"/>
+      <xsd:attribute ref="xlink:href" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="structMap">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:div"/>
+      </xsd:sequence>
+      <xsd:attribute name="TYPE" use="required" type="xsd:NCName"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="div">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:fptr"/>
+      </xsd:sequence>
+      <xsd:attribute name="LABEL" use="required"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="fptr">
+    <xsd:complexType>
+      <xsd:attribute name="FILEID" use="required" type="xsd:NCName"/>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="mets.mdWrap">
+    <xsd:sequence>
+      <xsd:element ref="mets:mdWrap"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="mdWrap">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="mets:xmlData"/>
+      </xsd:sequence>
+      <xsd:attribute name="LABEL" use="optional" type="xsd:string"/>
+      <xsd:attribute name="MDTYPE" use="required">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="EAD"/>
+            <xsd:pattern value="NISOIMG"/>
+            <xsd:pattern value="OTHER"/>
+            <xsd:pattern value="METSRIGHTS"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="MIMETYPE" use="required">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="text/xml"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="OTHERMDTYPE" use="optional">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="RDF"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+      <xsd:attribute name="MDTYPEVERSION" use="optional">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:pattern value="No-arch"/>
+            <xsd:pattern value="Arch"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:element name="xmlData">
+    <xsd:complexType>
+      <xsd:choice>
+        <xsd:element ref="ead:c"/>
+        <xsd:element ref="ead-noarch:c"/>
+        <xsd:element ref="ead-context:ead"/>
+        <xsd:element ref="mix:mix"/>
+        <xsd:element ref="metsrights:RightsDeclarationMD"/>
+        <xsd:element ref="rdf:RDF"/>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ead-context.did">
+    <xsd:sequence>
+      <xsd:element ref="ead-context:did"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ead.p">
+    <xsd:sequence>
+      <xsd:element ref="ead:p"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

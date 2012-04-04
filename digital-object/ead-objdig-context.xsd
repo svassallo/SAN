@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ead-context="http://san.mibac.it/ead-san-objdig/context" elementFormDefault="qualified"
+    targetNamespace="http://san.mibac.it/ead-san-objdig/context" xmlns="http://san.mibac.it/ead-san-objdig/context">
+    <xsd:element name="ead">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="archdesc"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="archdesc">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="did">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="unitid" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:extension base="xsd:NMTOKEN">
+                                            <xsd:attribute name="identifier" type="xsd:anyURI"/>
+                                        </xsd:extension>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element ref="unittitle"/>
+                            <xsd:element ref="repository"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element ref="dsc" minOccurs="0"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="dsc">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="c"/>
+            </xsd:sequence>
+        </xsd:complexType>      
+    </xsd:element>
+    <xsd:element name="c">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="did"/>
+                <xsd:element ref="c" minOccurs="0"/>  
+            </xsd:sequence>
+        </xsd:complexType>    
+        
+    </xsd:element>
+    <xsd:element name="did">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:choice maxOccurs="2">
+                    <xsd:element name="unittitle" type="stringNotEmpty"/>
+                    <xsd:element name="unitid" type="xsd:NMTOKEN"/>
+                </xsd:choice>
+                
+            </xsd:sequence>
+        </xsd:complexType>
+        <xsd:unique name="uniqueTitle">            
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ead-context:unittitle"/>
+        </xsd:unique>
+        <xsd:unique name="uniqueId">            
+            <xsd:selector xpath="."/>
+            <xsd:field xpath="ead-context:unitid"/>
+        </xsd:unique>    
+    </xsd:element>
+    <xsd:element name="repository">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="corpname"/>
+                <xsd:element ref="abbr"/>
+            </xsd:sequence>
+            <xsd:attribute name="id" use="required" type="xsd:NMTOKEN"/>                    
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="unittitle" type="stringNotEmpty"/>
+    <xsd:element name="corpname" type="stringNotEmpty"/>
+    <xsd:element name="abbr" type="xsd:NMTOKEN"/>  
+    <xsd:simpleType name="stringNotEmpty">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>

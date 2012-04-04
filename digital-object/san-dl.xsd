@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://mibac.it/san/dl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns="http://mibac.it/san/dl#">
+  <xsd:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="mets_rdf.xsd"/>
+  
+  <xsd:element name="haSistemaAderente" >
+  	<xsd:complexType>
+  		<xsd:complexContent> 
+         <xsd:extension base="rdf:rdfProperty" />  
+        </xsd:complexContent>
+  	</xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haProgettoDigitalizzazione" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haConservatore" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haComplesso" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haSigillo" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haPergamena" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haLettera" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haFrancobollo" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haParte" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haCollezioneVirtuale" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haRisorsaBibliografica" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+     
+  <xsd:element name="haPercorsoTematico" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haPortaleTematico" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="haArchipedia" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
+ 
+</xsd:schema>
+

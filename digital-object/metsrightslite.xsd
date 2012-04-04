@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://san.mibac.it/metsrights-lite/"
+    xmlns="http://san.mibac.it/metsrights-lite/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    
+    <xs:element name="RightsDeclarationMD" type="RightsDeclareMDTYPE"/>
+    <xs:complexType name="RightsDeclareMDTYPE">
+        <xs:sequence>
+            <!-- <xs:element name="RightsDeclaration" minOccurs="0" maxOccurs="unbounded"/> -->
+            <xs:element name="RightsHolder" type="RightsHolderTYPE" minOccurs="1"
+                maxOccurs="unbounded"/>
+            <xs:element name="Context" type="ContextTYPE" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="RIGHTSCATEGORY" default="COPYRIGHTED" >
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="COPYRIGHTED"/>
+                    <xs:enumeration value="LICENSED"/>
+                    <xs:enumeration value="PUBLIC DOMAIN"/>
+                    <xs:enumeration value="CONTRACTUAL"/>
+                    <xs:enumeration value="OTHER"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="OTHERCATEGORYTYPE" type="xs:string" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="RightsHolderTYPE">
+        <xs:sequence>
+            <xs:element name="RightsHolderName" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="RIGHTSHOLDERID" type="xs:ID" use="optional"/>
+        <xs:attribute name="CONTEXTIDS" type="xs:IDREFS" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="ContextTYPE">
+        <xs:sequence>
+            <xs:element name="Constraints" type="ConstraintsTYPE" minOccurs="1"
+                maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="CONTEXTID" type="xs:ID" use="optional"/>
+        <xs:attribute name="RIGHTSHOLDERIDS" type="xs:IDREFS" use="optional"/>
+        <xs:attribute name="CONTEXTCLASS" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="ACADEMIC USER"/>
+                    <xs:enumeration value="GENERAL PUBLIC"/>
+                    <xs:enumeration value="REPOSITORY MGR"/>
+                    <xs:enumeration value="MANAGED GRP"/>
+                    <xs:enumeration value="INSTITUTIONAL AFFILIATE"/>
+                    <xs:enumeration value="OTHER"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="OTHERCONTEXTTYPE" type="xs:string" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="ConstraintsTYPE">
+        <xs:sequence>
+            <xs:element name="ConstraintDescription"/>
+        </xs:sequence>
+        <xs:attribute name="CONSTRAINTTYPE" fixed="OTHER"/>
+        <xs:attribute name="OTHERCONSTRAINTTYPE">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="AccessRestrict"/>
+                    <xs:enumeration value="UserRestrict"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:san-dl="http://mibac.it/san/dl#"
+	xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<xsd:import namespace="http://mibac.it/san/dl#" schemaLocation="san-dl.xsd" />
+
+	<xsd:element name="RDF">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Description">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element ref="san-dl:haSistemaAderente" minOccurs="1"/>
+							<xsd:element ref="san-dl:haProgettoDigitalizzazione" minOccurs="1"/>
+							<xsd:element ref="san-dl:haConservatore" minOccurs="0"/>
+							<xsd:element ref="san-dl:haComplesso" minOccurs="0"/>
+							<xsd:element ref="san-dl:haSigillo" minOccurs="0"/>
+							<xsd:element ref="san-dl:haPergamena" minOccurs="0"/>
+							<xsd:element ref="san-dl:haLettera" minOccurs="0"/>
+							<xsd:element ref="san-dl:haFrancobollo" minOccurs="0"/>
+							<xsd:element ref="san-dl:haParte" minOccurs="0"/>
+							<xsd:element ref="san-dl:haCollezioneVirtuale" minOccurs="0"/>
+							<xsd:element ref="san-dl:haRisorsaBibliografica" minOccurs="0"/>
+							<xsd:element ref="san-dl:haPercorsoTematico" minOccurs="0"/>
+							<xsd:element ref="san-dl:haPortaleTematico" minOccurs="0"/>
+							<xsd:element ref="san-dl:haArchipedia" minOccurs="0"/>
+						</xsd:sequence>
+						<xsd:attribute name="about" use="required" form="qualified"
+							type="xsd:NMTOKEN" />
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="rdfProperty">
+		<xsd:attribute name="resource" use="required" form="qualified"
+			type="xsd:string" />
+	</xsd:complexType>
+</xsd:schema>

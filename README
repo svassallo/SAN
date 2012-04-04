@@ -1,0 +1,4 @@
+This repo is for the National Archive System of Italy (SAN - Sistema Archivistico Nazionale see http://san.beniculturali.it) XML schemas
+
+- CAT are schemas to import fonds', creators', custodies' and finding aids' descriptions
+- digit-object are schemas to import digital objects :-)

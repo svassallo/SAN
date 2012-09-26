@@ -14,6 +14,7 @@
 							<xsd:element ref="san-dl:haSistemaAderente" minOccurs="1"/>
 							<xsd:element ref="san-dl:haProgettoDigitalizzazione" minOccurs="1"/>
 							<xsd:element ref="san-dl:haConservatore" minOccurs="0"/>
+							<xsd:element ref="san-dl:haProduttore" minOccurs="0"/>
 							<xsd:element ref="san-dl:haComplesso" minOccurs="0"/>
 							<xsd:element ref="san-dl:haSigillo" minOccurs="0"/>
 							<xsd:element ref="san-dl:haPergamena" minOccurs="0"/>

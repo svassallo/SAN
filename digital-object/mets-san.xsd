@@ -6,6 +6,7 @@
   xmlns:ead-context="http://san.mibac.it/ead-san-objdig/context"
   xmlns:ead="http://san.mibac.it/ead-san-objdig/"
   xmlns:ead-noarch="http://san.mibac.it/ead-san-objdig-noarch/"
+  xmlns:eac-cpf="http://san.mibac.it/eac-san/"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns="http://san.mibac.it/mets-san/">
   <xsd:import namespace="http://mibac.it/san/dl#"
@@ -16,6 +17,8 @@
     schemaLocation="http://san.beniculturali.it/tracciato/ead-objdig-desc-noarch.xsd"/>
   <xsd:import namespace="http://san.mibac.it/ead-san-objdig/context"
     schemaLocation="http://san.beniculturali.it/tracciato/ead-objdig-context.xsd"/>
+  <xsd:import namespace="http://san.mibac.it/eac-san/"
+      schemaLocation="http://san.beniculturali.it/tracciato/schemaeac.xsd"/>  
   <xsd:import namespace="http://san.mibac.it/mix-lite/"
     schemaLocation="http://san.beniculturali.it/tracciato/mixlite.xsd"/>
   <xsd:import namespace="http://san.mibac.it/metsrights-lite/"
@@ -107,6 +110,7 @@
               <xsd:restriction base="xsd:string">
                 <xsd:enumeration value="ead-context-001"/>
                 <xsd:enumeration value="ead-desc-001"/>
+                <xsd:enumeration value="eac-cpf"/>
                 <xsd:enumeration value="rel"/>
                 <xsd:enumeration value="relDL"/>
                 <xsd:enumeration value="relSAN"/>
@@ -230,6 +234,7 @@
         <xsd:simpleType>
           <xsd:restriction base="xsd:string">
             <xsd:pattern value="EAD"/>
+            <xsd:pattern value="EAC-CPF"/>
             <xsd:pattern value="NISOIMG"/>
             <xsd:pattern value="OTHER"/>
             <xsd:pattern value="METSRIGHTS"/>
@@ -267,6 +272,7 @@
         <xsd:element ref="ead:c"/>
         <xsd:element ref="ead-noarch:c"/>
         <xsd:element ref="ead-context:ead"/>
+        <xsd:element ref="eac-cpf:eac-cpf"/>
         <xsd:element ref="mix:mix"/>
         <xsd:element ref="metsrights:RightsDeclarationMD"/>
         <xsd:element ref="rdf:RDF"/>

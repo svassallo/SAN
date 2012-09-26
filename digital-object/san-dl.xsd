@@ -29,6 +29,14 @@
       </xsd:complexContent>
     </xsd:complexType>
   </xsd:element>
+
+  <xsd:element name="haProduttore" >
+    <xsd:complexType>
+      <xsd:complexContent> 
+        <xsd:extension base="rdf:rdfProperty" />  
+      </xsd:complexContent>
+    </xsd:complexType>
+  </xsd:element>
   
   <xsd:element name="haComplesso" >
     <xsd:complexType>
